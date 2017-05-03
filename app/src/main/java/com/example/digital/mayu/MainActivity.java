@@ -45,7 +45,6 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -53,7 +52,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     public double b = 0;
     public float c = (Math.round(0*1000))/1000;
 
-    /********   graph   ******      drawing     ************/
+    /*********   graph   *********/
 
     private Timer timer = new Timer();
     private TimerTask task;
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     int[] xv = new int[100];
     int[] yv = new int[100];
 
-    /********   GPS     ********/
+    /*********   GPS     *********/
     // 定位相关
     LocationClient mLocClient;
     public MyLocationListenner myListener = new MyLocationListenner();
@@ -144,19 +142,16 @@ public class MainActivity extends AppCompatActivity {
         status = (TextView) findViewById(R.id.status);
         btnstop = (Button) findViewById(R.id.stop);
 
-        /********   graph   *******/
+        /**********   graph   **********/
 
         context = getApplicationContext();
-
         //这里获得main界面上的布局，下面会把图表画在这个布局里面
         LinearLayout layout = (LinearLayout)findViewById(R.id.linearLayout1);
 
         //这个类用来放置曲线上的所有点，是一个点的集合，根据这些点画出曲线
         series = new XYSeries(title);
-
         //创建一个数据集的实例，这个数据集将被用来创建图表
         mDataset = new XYMultipleSeriesDataset();
-
         //将点集添加到这个数据集中
         mDataset.addSeries(series);
 
@@ -167,10 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
         //设置好图表的样式
         setChartSettings(renderer, "X", "Y", 0, 100, 0, 30, Color.WHITE, Color.WHITE);
-
         //生成图表
         chart = ChartFactory.getLineChartView(context, mDataset, renderer);
-
         //将图表添加到布局中去
         layout.addView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
 
@@ -192,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         timer.schedule(task, 500, 500);
-
 
 
 
@@ -248,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
         string += "onresume ";
         status.setText(string);
     }
+
+
 
     /***************     Running   part  start     ****************/
 
@@ -402,8 +396,10 @@ public class MainActivity extends AppCompatActivity {
         return renderer;
     }
 
-    protected void setChartSettings(XYMultipleSeriesRenderer renderer, String xTitle, String yTitle,
-                                    double xMin, double xMax, double yMin, double yMax, int axesColor, int labelsColor) {
+    protected void setChartSettings(XYMultipleSeriesRenderer renderer,
+                                    String xTitle, String yTitle,
+                                    double xMin, double xMax, double yMin, double yMax,
+                                    int axesColor, int labelsColor) {
         //有关对图表的渲染可参看api文档
         renderer.setChartTitle(title);
         renderer.setXTitle(xTitle);
@@ -430,7 +426,6 @@ public class MainActivity extends AppCompatActivity {
         //设置好下一个需要增加的节点
         addX = 0;
         addY = (int) b;
-//        addY = (int)(Math.random() * 90);
 
         //移除数据集中旧的点集
         mDataset.removeSeries(series);
@@ -547,8 +542,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /****************＊     Running   part  off     *******************/
-
-
 
 
 
