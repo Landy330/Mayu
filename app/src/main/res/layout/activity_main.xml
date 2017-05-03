@@ -101,4 +101,29 @@
 
     </RelativeLayout>
 
+  <AbsoluteLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+          android:id="@+id/linearLayout1"
+          android:layout_width="290dp"
+          android:layout_height="122dp"
+          android:layout_x="83dp"
+          android:layout_y="234dp"
+          android:orientation="vertical" >
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/linearLayout2"
+          android:layout_width="290dp"
+          android:layout_height="130dp"
+          android:layout_x="83dp"
+          android:layout_y="234dp"
+          android:orientation="vertical" >
+      </LinearLayout>
+
+  </AbsoluteLayout>
+
+
+
 </RelativeLayout>
