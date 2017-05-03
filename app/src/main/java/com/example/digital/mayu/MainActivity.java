@@ -72,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
     public float xacc = 0;
     public float yacc = 0;
     public float zacc = 0;
-    public double b = 0;
     public float c = (Math.round(0*1000))/1000;
+    public double b;
+    public LinearLayout layout;
 
     /*********   graph   *********/
 
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         context = getApplicationContext();
         //这里获得main界面上的布局，下面会把图表画在这个布局里面
-        LinearLayout layout = (LinearLayout)findViewById(R.id.linearLayout1);
+        layout = (LinearLayout)findViewById(R.id.linearLayout1);
 
         //这个类用来放置曲线上的所有点，是一个点的集合，根据这些点画出曲线
         series = new XYSeries(title);
@@ -161,11 +162,12 @@ public class MainActivity extends AppCompatActivity {
         renderer = buildRenderer(color, style, true);
 
         //设置好图表的样式
-        setChartSettings(renderer, "X", "Y", 0, 100, 0, 30, Color.WHITE, Color.WHITE);
+        setChartSettings(renderer, "X", "Y", 0, 100, 0, 35, Color.WHITE, Color.WHITE);
         //生成图表
         chart = ChartFactory.getLineChartView(context, mDataset, renderer);
         //将图表添加到布局中去
-        layout.addView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+        layout.addView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.FILL_PARENT));
 
         //这里的Handler实例将配合下面的Timer实例，完成定时更新图表的功能
         handler = new Handler() {
@@ -249,9 +251,14 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v.equals(btnstop))
+            if(v.equals(btnstop)) {
                 ps = !ps;
-                // gps button
+                if (!ps)
+                    btnstop.setText(R.string.pause);
+                else
+                    btnstop.setText(R.string.con);
+            }
+            // gps button
             else if (v.equals(btnStartRecord)) {
                 // sensor on
                 sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -259,6 +266,13 @@ public class MainActivity extends AppCompatActivity {
                 sensorManager.registerListener(sensorEventListener,ssrlin,SensorManager.SENSOR_DELAY_NORMAL);
                 string += "is_on ";
                 status.setText(string);
+
+                // graph
+//                layout.setVisibility(View.GONE);
+                // sth about pause & continue
+//                if(timer == null)
+//                    timer = new Timer();
+
                 // gps on
                 status.setText(string);
                 isRecording = true;
@@ -275,6 +289,14 @@ public class MainActivity extends AppCompatActivity {
                 sensorManager = null;   // 解除监听器注册
                 string += "is_off ";
                 tvshow.setText("linear acceleration: \n x acc:0\n y acc:0\n z acc:0");
+                // graph
+//                layout.setVisibility(View.VISIBLE);
+                // sth about pause & continue
+                //当结束程序时关掉Timer timertask
+//                timer.cancel();
+//                timer = null;
+//                task.cancel();
+//                task = null;
                 // gps off
                 isRecording = false;
                 isFirstRecord = true;
@@ -392,12 +414,10 @@ public class MainActivity extends AppCompatActivity {
         r.setFillPoints(fill);
         r.setLineWidth(3);
         renderer.addSeriesRenderer(r);
-
         return renderer;
     }
 
-    protected void setChartSettings(XYMultipleSeriesRenderer renderer,
-                                    String xTitle, String yTitle,
+    protected void setChartSettings(XYMultipleSeriesRenderer renderer, String xTitle, String yTitle,
                                     double xMin, double xMax, double yMin, double yMax,
                                     int axesColor, int labelsColor) {
         //有关对图表的渲染可参看api文档
@@ -453,7 +473,6 @@ public class MainActivity extends AppCompatActivity {
 
         //在数据集中添加新的点集
         mDataset.addSeries(series);
-
         //视图更新，没有这一步，曲线不会呈现动态
         //如果在非UI主线程中，需要调用postInvalidate()，具体参考api
         chart.invalidate();

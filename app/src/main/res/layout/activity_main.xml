@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="22dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="34dp" />
 
         <Button
@@ -95,9 +95,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="32dp"
             android:layout_marginTop="90dp"
             android:background="@color/button2_color"
-            android:text="@string/stop" />
+            android:text="@string/pause" />
 
     </RelativeLayout>
 

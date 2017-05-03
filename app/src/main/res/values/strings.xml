@@ -2,5 +2,7 @@
     <string name="app_name">Mayu</string>
     <string name="text">hello mayu</string>
     <string name="lin">on/off</string>
-    <string name="stop">pause/continue</string>
+    <string name="pause">pause</string>
+    <string name="con">continue</string>
+
 </resources>
