@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
     public float c = (Math.round(0*1000))/1000;
     public double b;
     public LinearLayout layout;
+    
+    public String date1;
+    public String str;
+    
 
     /*********   graph   *********/
 
@@ -266,6 +270,9 @@ public class MainActivity extends AppCompatActivity {
                 sensorManager.registerListener(sensorEventListener,ssrlin,SensorManager.SENSOR_DELAY_NORMAL);
                 string += "is_on ";
                 status.setText(string);
+                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm");   // data format
+                date1 = sdf.format(new Date());
 
                 // graph
 //                layout.setVisibility(View.GONE);
@@ -379,8 +386,8 @@ public class MainActivity extends AppCompatActivity {
 
                     // Store data
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");   // data format
-                    String str = Environment.getExternalStorageDirectory() + File.separator + "Group6.txt";
-                    File file = new File(str);              //  create a new file
+                    str = Environment.getExternalStorageDirectory() + File.separator + date1+".txt";
+                    File file = new File(str);// create a new file 
                     String date = sdf.format(new Date());   //  record time
                     try{
                         if(!file.exists()){
